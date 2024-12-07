@@ -1,0 +1,720 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ProfitandLoss" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0311b093-5eb4-4a77-be80-1b813cd4cb9b">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ReportShop"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT 
+    COALESCE(SUM(a.TotalBlance), 0) AS TotalBalanceSum, 
+    COALESCE(SUM(a.DiscountTk), 0) AS DiscountSum,
+    COALESCE(SUM(sr.Amount), 0) AS SaleReturnAmount,
+    COALESCE(SUM(a.TotalBlance) - (SUM(a.DiscountTk) + SUM(sr.Amount)), 0) AS NetSale,
+    
+    -- Total buy cost subquery
+    (SELECT COALESCE(SUM(subquery.single_buy_cost), 0) 
+     FROM (
+         SELECT invaudit.qty, purchase.Rate, invaudit.qty * purchase.Rate AS single_buy_cost 
+         FROM invaudit 
+         INNER JOIN purchase ON invaudit.Barcode = purchase.Barcode
+     ) AS subquery) AS total_buy_cost,
+    
+    -- Gross profit calculation
+    COALESCE(SUM(a.TotalBlance) - (SUM(a.DiscountTk) + SUM(sr.Amount)), 0) 
+    - COALESCE((SELECT SUM(subquery.single_buy_cost) 
+                FROM ( 
+                    SELECT invaudit.qty, purchase.Rate, invaudit.qty * purchase.Rate AS single_buy_cost 
+                    FROM invaudit 
+                    INNER JOIN purchase ON invaudit.Barcode = purchase.Barcode
+                ) AS subquery), 0) AS Gross_profit,
+    
+    -- Other incomes
+    COALESCE(SUM(CASE WHEN ps.Reasone = 'Others (Income)' THEN ps.Amount ELSE 0 END), 0) AS Other_Income,
+    COALESCE(SUM(CASE WHEN ps.Reasone = 'Servicing Charge' THEN ps.Amount ELSE 0 END), 0) AS Servicing_Charge,
+    COALESCE(SUM(CASE WHEN ps.Reasone = 'Commission' THEN ps.Amount ELSE 0 END), 0) AS Commission,
+    COALESCE(SUM(CASE WHEN ps.Reasone IN ('Others (Income)', 'Servicing Charge', 'Commission') THEN ps.Amount ELSE 0 END), 0) AS Other_services_charge,
+    
+    -- Total gross profit calculation
+    COALESCE(SUM(CASE WHEN ps.Reasone IN ('Others (Income)', 'Servicing Charge', 'Commission') THEN ps.Amount ELSE 0 END), 0) 
+    + COALESCE(SUM(a.TotalBlance) - (SUM(a.DiscountTk) + SUM(sr.Amount)), 0) 
+    - COALESCE((SELECT SUM(subquery.single_buy_cost) 
+                FROM ( 
+                    SELECT invaudit.qty, purchase.Rate, invaudit.qty * purchase.Rate AS single_buy_cost 
+                    FROM invaudit 
+                    INNER JOIN purchase ON invaudit.Barcode = purchase.Barcode
+                ) AS subquery), 0) AS Total_gross_profit,
+                
+    -- Expenses
+    COALESCE(SUM(CASE WHEN ps.Reasone = 'Monthly Bills' THEN ps.Amount ELSE 0 END), 0) AS Monthly_Bills,
+    COALESCE(SUM(CASE WHEN ps.Reasone = 'Entertainment' THEN ps.Amount ELSE 0 END), 0) AS Entertainment,
+    COALESCE(SUM(CASE WHEN ps.Reasone = 'Carrying Charge' THEN ps.Amount ELSE 0 END), 0) AS Carrying_charge,
+    COALESCE(SUM(CASE WHEN ps.Reasone = 'Other Expense' THEN ps.Amount ELSE 0 END), 0) AS Other_Expense,
+    COALESCE(SUM(CASE WHEN ps.Reasone = 'Discount' THEN ps.Amount ELSE 0 END), 0) AS Discount,
+    COALESCE(SUM(CASE WHEN ps.Reasone = 'Commission' THEN ps.Amount ELSE 0 END), 0) AS Payment_Commission,
+    COALESCE(SUM(CASE WHEN ps.Reasone = 'Yearly Bills' THEN ps.Amount ELSE 0 END), 0) AS Yearly_Bills,
+    COALESCE(SUM(CASE WHEN ps.Reasone = 'Salary' THEN ps.Amount ELSE 0 END), 0) AS Salary,
+    COALESCE(SUM(CASE WHEN ps.Reasone = 'Bank Interest' THEN ps.Amount ELSE 0 END), 0) AS Bank_Interest,
+    COALESCE(SUM(CASE WHEN ps.Reasone = 'Depreciation' THEN ps.Amount ELSE 0 END), 0) AS Depreciation,
+    COALESCE(SUM(CASE WHEN ps.Reasone = 'Daily Expenditure' THEN ps.Amount ELSE 0 END), 0) AS Daily_Expenditure,
+    COALESCE(SUM(CASE WHEN ps.Reasone = 'Purchasing Extra Expenditure' THEN ps.Amount ELSE 0 END), 0) AS Purchasing_extra_Expenditure,
+    COALESCE(SUM(CASE WHEN ps.Reasone IN ('Monthly Bills', 'Entertainment', 'Carrying Charge', 'Other Expense', 'Yearly Bills', 'Commision', 'Discount', 'Purchasing Extra Expenditure', 'Daily Expenditure', 'Depreciation', 'Bank Interest', 'Salary') THEN ps.Amount ELSE 0 END), 0) AS Total_Expense,
+    
+    -- Net profit or loss calculation
+    COALESCE(SUM(a.TotalBlance) - (SUM(a.DiscountTk) + SUM(sr.Amount)), 0) 
+    + COALESCE(SUM(CASE WHEN ps.Reasone IN ('Others (Income)', 'Servicing Charge', 'Commission') THEN ps.Amount ELSE 0 END), 0) 
+    - COALESCE((SELECT SUM(subquery.single_buy_cost) 
+                FROM ( 
+                    SELECT invaudit.qty, purchase.Rate, invaudit.qty * purchase.Rate AS single_buy_cost 
+                    FROM invaudit 
+                    INNER JOIN purchase ON invaudit.Barcode = purchase.Barcode
+                ) AS subquery), 0) 
+    - COALESCE(SUM(CASE WHEN ps.Reasone IN ('Monthly Bills', 'Entertainment', 'Carrying Charge', 'Other Expense', 'Yearly Bills', 'Commision', 'Discount', 'Purchasing Extra Expenditure', 'Daily Expenditure', 'Depreciation', 'Bank Interest', 'Salary') THEN ps.Amount ELSE 0 END), 0) AS netprofitorloss,
+    
+    -- Profit payments
+    COALESCE(SUM(CASE WHEN ps.Status = 'Payment' AND ps.Reasone = 'Daily Bank' THEN ps.Amount ELSE 0 END), 0) AS Profit_Payment,
+     
+    -- Rest amount calculation
+    COALESCE(SUM(a.TotalBlance) - (SUM(a.DiscountTk) + SUM(sr.Amount)), 0) 
+    + COALESCE(SUM(CASE WHEN ps.Reasone IN ('Others (Income)', 'Servicing Charge', 'Commission') THEN ps.Amount ELSE 0 END), 0) 
+    - COALESCE((SELECT SUM(subquery.single_buy_cost) 
+                FROM ( 
+                    SELECT invaudit.qty, purchase.Rate, invaudit.qty * purchase.Rate AS single_buy_cost 
+                    FROM invaudit 
+                    INNER JOIN purchase ON invaudit.Barcode = purchase.Barcode
+                ) AS subquery), 0) 
+    - COALESCE(SUM(CASE WHEN ps.Reasone IN ('Monthly Bills', 'Entertainment', 'Carrying Charge', 'Other Expense', 'Yearly Bills', 'Commision', 'Discount', 'Purchasing Extra Expenditure', 'Daily Expenditure', 'Depreciation', 'Bank Interest', 'Salary') THEN ps.Amount ELSE 0 END), 0) 
+    - COALESCE(SUM(CASE WHEN ps.Status = 'Payment' AND ps.Reasone = 'Daily Bank' THEN ps.Amount ELSE 0 END), 0) AS Rest_Amount
+
+FROM 
+    invaudit a
+
+LEFT JOIN 
+    (SELECT 
+         sr.invoiceNo, 
+         SUM(sr.Amount) AS Amount 
+     FROM 
+         sale_return sr 
+     GROUP BY 
+         sr.invoiceNo) sr ON a.invoiceNo = sr.invoiceNo
+     
+LEFT JOIN paymentstatement ps ON ps.Date BETWEEN '2024-01-01' AND CURRENT_DATE
+
+WHERE 
+    a.cdate BETWEEN 'Select date' AND 'To';  -- Replace 'Select date' and 'To' with actual date values
+]]>
+	</queryString>
+	<field name="TotalBalanceSum" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="TotalBalanceSum"/>
+		<property name="com.jaspersoft.studio.field.label" value="TotalBalanceSum"/>
+	</field>
+	<field name="DiscountSum" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="DiscountSum"/>
+		<property name="com.jaspersoft.studio.field.label" value="DiscountSum"/>
+	</field>
+	<field name="SaleReturnAmount" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="SaleReturnAmount"/>
+		<property name="com.jaspersoft.studio.field.label" value="SaleReturnAmount"/>
+	</field>
+	<field name="NetSale" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="NetSale"/>
+		<property name="com.jaspersoft.studio.field.label" value="NetSale"/>
+	</field>
+	<field name="total_buy_cost" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="total_buy_cost"/>
+		<property name="com.jaspersoft.studio.field.label" value="total_buy_cost"/>
+	</field>
+	<field name="Gross_profit" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="Gross_profit"/>
+		<property name="com.jaspersoft.studio.field.label" value="Gross_profit"/>
+	</field>
+	<field name="Other_Income" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="Other_Income"/>
+		<property name="com.jaspersoft.studio.field.label" value="Other_Income"/>
+	</field>
+	<field name="Servicing_Charge" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="Servicing_Charge"/>
+		<property name="com.jaspersoft.studio.field.label" value="Servicing_Charge"/>
+	</field>
+	<field name="Commission" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="Commission"/>
+		<property name="com.jaspersoft.studio.field.label" value="Commission"/>
+	</field>
+	<field name="Other_services_charge" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="Other_services_charge"/>
+		<property name="com.jaspersoft.studio.field.label" value="Other_services_charge"/>
+	</field>
+	<field name="Total_gross_profit" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="Total_gross_profit"/>
+		<property name="com.jaspersoft.studio.field.label" value="Total_gross_profit"/>
+	</field>
+	<field name="Monthly_Bills" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="Monthly_Bills"/>
+		<property name="com.jaspersoft.studio.field.label" value="Monthly_Bills"/>
+	</field>
+	<field name="Entertainment" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="Entertainment"/>
+		<property name="com.jaspersoft.studio.field.label" value="Entertainment"/>
+	</field>
+	<field name="Carrying_charge" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="Carrying_charge"/>
+		<property name="com.jaspersoft.studio.field.label" value="Carrying_charge"/>
+	</field>
+	<field name="Other_Expense" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="Other_Expense"/>
+		<property name="com.jaspersoft.studio.field.label" value="Other_Expense"/>
+	</field>
+	<field name="Discount" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="Discount"/>
+		<property name="com.jaspersoft.studio.field.label" value="Discount"/>
+	</field>
+	<field name="Payment_Commission" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="Payment_Commission"/>
+		<property name="com.jaspersoft.studio.field.label" value="Payment_Commission"/>
+	</field>
+	<field name="Yearly_Bills" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="Yearly_Bills"/>
+		<property name="com.jaspersoft.studio.field.label" value="Yearly_Bills"/>
+	</field>
+	<field name="Salary" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="Salary"/>
+		<property name="com.jaspersoft.studio.field.label" value="Salary"/>
+	</field>
+	<field name="Bank_Interest" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="Bank_Interest"/>
+		<property name="com.jaspersoft.studio.field.label" value="Bank_Interest"/>
+	</field>
+	<field name="Depreciation" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="Depreciation"/>
+		<property name="com.jaspersoft.studio.field.label" value="Depreciation"/>
+	</field>
+	<field name="Daily_Expenditure" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="Daily_Expenditure"/>
+		<property name="com.jaspersoft.studio.field.label" value="Daily_Expenditure"/>
+	</field>
+	<field name="Purchasing_extra_Expenditure" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="Purchasing_extra_Expenditure"/>
+		<property name="com.jaspersoft.studio.field.label" value="Purchasing_extra_Expenditure"/>
+	</field>
+	<field name="Total_Expense" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="Total_Expense"/>
+		<property name="com.jaspersoft.studio.field.label" value="Total_Expense"/>
+	</field>
+	<field name="netprofitorloss" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="netprofitorloss"/>
+		<property name="com.jaspersoft.studio.field.label" value="netprofitorloss"/>
+	</field>
+	<field name="Profit_Payment" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="Profit_Payment"/>
+		<property name="com.jaspersoft.studio.field.label" value="Profit_Payment"/>
+	</field>
+	<field name="Rest_Amount" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="Rest_Amount"/>
+		<property name="com.jaspersoft.studio.field.label" value="Rest_Amount"/>
+	</field>
+	<group name="TotalBalanceSum">
+		<groupExpression><![CDATA[$F{TotalBalanceSum}]]></groupExpression>
+	</group>
+	<group name="DiscountSum">
+		<groupExpression><![CDATA[$F{DiscountSum}]]></groupExpression>
+	</group>
+	<group name="SaleReturnAmount">
+		<groupExpression><![CDATA[$F{SaleReturnAmount}]]></groupExpression>
+	</group>
+	<group name="NetSale">
+		<groupExpression><![CDATA[$F{NetSale}]]></groupExpression>
+	</group>
+	<group name="total_buy_cost">
+		<groupExpression><![CDATA[$F{total_buy_cost}]]></groupExpression>
+	</group>
+	<group name="Gross_profit">
+		<groupExpression><![CDATA[$F{Gross_profit}]]></groupExpression>
+	</group>
+	<group name="Other_Income">
+		<groupExpression><![CDATA[$F{Other_Income}]]></groupExpression>
+	</group>
+	<group name="Servicing_Charge">
+		<groupExpression><![CDATA[$F{Servicing_Charge}]]></groupExpression>
+	</group>
+	<group name="Commission">
+		<groupExpression><![CDATA[$F{Commission}]]></groupExpression>
+	</group>
+	<group name="Other_services_charge">
+		<groupExpression><![CDATA[$F{Other_services_charge}]]></groupExpression>
+	</group>
+	<group name="Total_gross_profit">
+		<groupExpression><![CDATA[$F{Total_gross_profit}]]></groupExpression>
+	</group>
+	<group name="Monthly_Bills">
+		<groupExpression><![CDATA[$F{Monthly_Bills}]]></groupExpression>
+	</group>
+	<group name="Entertainment">
+		<groupExpression><![CDATA[$F{Entertainment}]]></groupExpression>
+	</group>
+	<group name="Carrying_charge">
+		<groupExpression><![CDATA[$F{Carrying_charge}]]></groupExpression>
+	</group>
+	<group name="Other_Expense">
+		<groupExpression><![CDATA[$F{Other_Expense}]]></groupExpression>
+	</group>
+	<group name="Discount">
+		<groupExpression><![CDATA[$F{Discount}]]></groupExpression>
+	</group>
+	<group name="Payment_Commission">
+		<groupExpression><![CDATA[$F{Payment_Commission}]]></groupExpression>
+	</group>
+	<group name="Yearly_Bills">
+		<groupExpression><![CDATA[$F{Yearly_Bills}]]></groupExpression>
+	</group>
+	<group name="Salary">
+		<groupExpression><![CDATA[$F{Salary}]]></groupExpression>
+	</group>
+	<group name="Bank_Interest">
+		<groupExpression><![CDATA[$F{Bank_Interest}]]></groupExpression>
+	</group>
+	<group name="Depreciation">
+		<groupExpression><![CDATA[$F{Depreciation}]]></groupExpression>
+	</group>
+	<group name="Daily_Expenditure">
+		<groupExpression><![CDATA[$F{Daily_Expenditure}]]></groupExpression>
+	</group>
+	<group name="Purchasing_extra_Expenditure">
+		<groupExpression><![CDATA[$F{Purchasing_extra_Expenditure}]]></groupExpression>
+	</group>
+	<group name="Total_Expense">
+		<groupExpression><![CDATA[$F{Total_Expense}]]></groupExpression>
+	</group>
+	<group name="netprofitorloss">
+		<groupExpression><![CDATA[$F{netprofitorloss}]]></groupExpression>
+	</group>
+	<group name="Profit_Payment">
+		<groupExpression><![CDATA[$F{Profit_Payment}]]></groupExpression>
+	</group>
+	<group name="Rest_Amount">
+		<groupExpression><![CDATA[$F{Rest_Amount}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="132" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="560" height="50" uuid="7f12817d-ada8-47f2-abea-8997aecefc9a"/>
+				<textElement textAlignment="Center">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Rifat Mega Mart]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="34" width="560" height="30" uuid="23ba52a1-a842-4b2e-b1bb-cde96be4bdb9"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kamal Bazar, Sylhet]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="100" width="560" height="30" uuid="57d642bb-dad8-4b36-949d-73ea9ce00b52"/>
+				<textElement textAlignment="Center">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Sale, Profit / Loss, Report]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="437" splitType="Stretch">
+			<textField>
+				<reportElement x="160" y="10" width="84" height="30" uuid="29f42d8b-2201-43e3-ae14-ae858e5ec56b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aa5350b3-2cd3-4ac3-8c3c-c4f863db8d23"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{TotalBalanceSum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="40" width="84" height="30" uuid="c8c79967-9214-4fa4-91a1-b409a0f248ca">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="152298cf-78a6-4d07-846e-85e116ef2923"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{DiscountSum}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="70" width="84" height="30" uuid="fd339b76-e399-4efa-8814-cf52ddd82e36">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1222156a-cd39-4ce6-93c5-8c1536c332ef"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{SaleReturnAmount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="100" width="84" height="30" uuid="42dc6997-8cb8-4351-b5e3-c4bdac5500f4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7db68938-53b9-4a7a-8236-f507e8a836a0"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NetSale}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="130" width="84" height="30" uuid="2eded2aa-a277-4df7-8273-435072b84e39">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3a68646f-fe7f-4177-965a-e729d60b70ee"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{total_buy_cost}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="160" width="84" height="30" uuid="a1e7ad00-f1b4-4d04-891d-9cad11c4a92b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fd75f8ba-75d6-4031-af8f-ab4142d49d5c"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Gross_profit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="190" width="84" height="30" uuid="37bdd5a5-2257-4481-b6e9-11218f2813f6">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0d581004-16b8-4c3e-b188-89c962a96763"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Other_Income}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="220" width="84" height="30" uuid="c9e63e91-39d3-4e9e-866b-895d437adc7c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="48a02aa5-6343-413a-a8b3-552b6910cf52"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Servicing_Charge}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="250" width="84" height="30" uuid="e199d804-c5ee-4bc0-b149-32fa086ba70d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="999e2ff9-c8c6-4454-8401-9ea7e650fe97"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Commission}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="280" width="84" height="30" uuid="b32e1c7d-20d1-45bf-b8b7-4d1d2815ab79">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f729fce2-e12b-46a5-bba2-de91179d226e"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Other_services_charge}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="310" width="84" height="30" uuid="4f89ac6a-fa9d-4f33-a41c-c424eefbf71f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3677042d-fa0c-409e-99f3-b005d0e33241"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Total_gross_profit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="9" width="94" height="30" uuid="e8997477-b086-4108-93dc-6616559ca4e7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b6fc2e51-d92c-44c4-89f7-77142cb8b7e7"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Monthly_Bills}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="40" width="94" height="30" uuid="8079bd5d-68ab-460e-9aec-419727b19fb0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f96279ed-54fa-4006-af59-5bb453f20885"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Entertainment}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="70" width="94" height="30" uuid="d58901eb-91db-47b0-b615-17bdffda0732">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="60699d69-9c93-4ad3-b12f-d7812fb0c245"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Carrying_charge}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="100" width="94" height="30" uuid="2acef950-cc87-47a9-b4f8-01c354a16382">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3316e976-1ef0-43b5-b31f-aacc0ec12eee"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Other_Expense}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="129" width="94" height="30" uuid="44783d31-e4f7-4466-86b1-b9c5c5e4206a">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b371c302-74cd-4360-a222-5297e548e78e"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Discount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="160" width="94" height="30" uuid="30ea2543-bcc9-44cc-9ac4-84c4be1c3563">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="94bda24e-fd32-4cb0-8e02-43ab7eb06ef7"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Payment_Commission}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="190" width="94" height="30" uuid="3838c98c-eeb7-4103-934c-52e8445173c4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="efe9907a-aea1-48f6-be13-6e62c86a118c"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Yearly_Bills}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="220" width="94" height="30" uuid="00463bb9-6c62-40c6-bcd0-f9e6e4f4f08e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8dc158fd-5415-471c-9bf6-5382660e7076"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Salary}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="340" width="84" height="30" uuid="89f8bc54-bd11-4060-97e1-ab10a126f278">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="42f9d161-9529-4a62-85e5-63846c65c8a4"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Bank_Interest}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="250" width="94" height="30" uuid="84717001-04c5-4052-92fc-de01d2bd12e8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7a506432-aadd-4e41-9932-2fd19c04ffb6"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Depreciation}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="280" width="94" height="30" uuid="fcb3e45e-1bf3-443f-9dd3-ef9d77428b0c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="739223ec-3ab4-4148-83d2-812d1266de05"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Daily_Expenditure}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="310" width="94" height="30" uuid="861eca63-c269-4dcb-824c-0e60a46450bd">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0c23e674-85f2-41b2-a1ca-c635c5b5f83d"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Purchasing_extra_Expenditure}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="340" width="94" height="30" uuid="8cc0750a-d7df-40f8-9676-fcd30bb891f1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="559f8a19-6e00-4a02-a03c-0d0e9d6d106a"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Total_Expense}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="37" y="9" width="114" height="30" uuid="6ec3a166-5883-4cca-96f6-27037c6e2525">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="aa5350b3-2cd3-4ac3-8c3c-c4f863db8d23"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Total Balance]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="40" width="114" height="30" uuid="400b3bd6-e84a-4696-a489-58d858643d82">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="152298cf-78a6-4d07-846e-85e116ef2923"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[DiscountSum]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="70" width="114" height="30" uuid="93160497-420f-4a1e-b29b-25ee8e9ac8ad">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1222156a-cd39-4ce6-93c5-8c1536c332ef"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[SaleReturnAmount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="100" width="114" height="30" uuid="e908eaae-f209-433b-8e2a-8635ef2be331">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7db68938-53b9-4a7a-8236-f507e8a836a0"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[NetSale]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="129" width="114" height="30" uuid="f7eb33f8-4fac-4823-9305-f32452917ed9">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3a68646f-fe7f-4177-965a-e729d60b70ee"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[total_buy_cost]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="159" width="114" height="30" uuid="580a0fc9-ba25-4512-a091-6e7672a481ad">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="fd75f8ba-75d6-4031-af8f-ab4142d49d5c"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Gross_profit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="190" width="114" height="30" uuid="2f5d55e2-b8fa-4875-bff7-5931dfae8033">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0d581004-16b8-4c3e-b188-89c962a96763"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Other_Income]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="220" width="114" height="30" uuid="07058c9a-b60b-4199-9755-379773d4b727">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="48a02aa5-6343-413a-a8b3-552b6910cf52"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Servicing_Charge]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="250" width="114" height="30" uuid="2c22e6e4-ec6f-4130-98b2-f90f9991823f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="999e2ff9-c8c6-4454-8401-9ea7e650fe97"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Commission]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="280" width="114" height="30" uuid="3ba1b412-9dd1-4adc-b07b-87332299e77c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f729fce2-e12b-46a5-bba2-de91179d226e"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Other_services_charge]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="310" width="114" height="30" uuid="504debf5-40a1-4db6-b7a2-c401816d64ea">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3677042d-fa0c-409e-99f3-b005d0e33241"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Total_gross_profit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="9" width="130" height="30" uuid="825c27ee-e420-4753-b0d5-2af4c2adf144">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b6fc2e51-d92c-44c4-89f7-77142cb8b7e7"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Monthly_Bills]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="39" width="130" height="30" uuid="6dd6205c-2821-4f9c-87fc-e37600125a09">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f96279ed-54fa-4006-af59-5bb453f20885"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Entertainment]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="69" width="130" height="30" uuid="54022f56-a4a4-4546-bd37-06ec13751427">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="60699d69-9c93-4ad3-b12f-d7812fb0c245"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Carrying_charge]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="100" width="130" height="30" uuid="0909ec8d-9b99-4666-a231-19860675a0c2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3316e976-1ef0-43b5-b31f-aacc0ec12eee"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Other_Expense]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="130" width="130" height="30" uuid="09a6bb53-a17a-4fee-83f1-4c60dfbd80bc">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b371c302-74cd-4360-a222-5297e548e78e"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Discount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="160" width="130" height="30" uuid="e8557386-0583-4cba-8ef0-e38632c749ae">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="94bda24e-fd32-4cb0-8e02-43ab7eb06ef7"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Payment_Commission]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="189" width="130" height="30" uuid="661fd84a-9f11-4b28-b011-2bbf09d909d2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="efe9907a-aea1-48f6-be13-6e62c86a118c"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Yearly_Bills]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="220" width="130" height="30" uuid="ad39efd4-26d4-44ad-935f-bb91740d0e11">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8dc158fd-5415-471c-9bf6-5382660e7076"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Salary]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="340" width="114" height="30" uuid="257afc9d-6584-4707-889c-6d2e6fdd052f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="42f9d161-9529-4a62-85e5-63846c65c8a4"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Bank_Interest]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="250" width="130" height="30" uuid="bff414f6-45ff-4bd2-ab8f-cd17d78f9cfe">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7a506432-aadd-4e41-9932-2fd19c04ffb6"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Depreciation]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="280" width="130" height="30" uuid="32b73f48-302f-4320-8de4-8986f4e6c428">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="739223ec-3ab4-4148-83d2-812d1266de05"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Daily_Expenditure]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="310" width="130" height="30" uuid="3e5e7a99-8495-4815-8dc8-06cae8a9924e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0c23e674-85f2-41b2-a1ca-c635c5b5f83d"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Purchasing_extra_Expenditure]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="340" width="130" height="30" uuid="a560ede0-74f4-4a6d-830d-81f465ea4527">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="559f8a19-6e00-4a02-a03c-0d0e9d6d106a"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Total_Expense]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="370" width="130" height="30" uuid="240ac873-3a12-4717-ac27-b4d3c4be41ce">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="97ec7ba0-3227-42a0-9d34-1b7fcd0e3759"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[netprofitorloss]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="285" y="400" width="130" height="30" uuid="4c3c2cff-3a2e-4f68-a00a-6a8578cf6497">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a306d845-95f4-435d-9761-2c3cbf1fa02e"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Profit_Payment]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="37" y="370" width="114" height="30" uuid="65dd8cd9-9d79-400e-92c0-0d052e758b37">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="00883ddd-a846-45c2-87ba-d002fc12ba33"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Rest_Amount]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="420" y="370" width="94" height="30" uuid="76abb656-6f7c-4edb-851b-51a75e76545b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="97ec7ba0-3227-42a0-9d34-1b7fcd0e3759"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{netprofitorloss}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="400" width="94" height="30" uuid="fde1201c-5b50-45ff-a4bd-92ec29ae8035">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a306d845-95f4-435d-9761-2c3cbf1fa02e"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Profit_Payment}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="370" width="84" height="30" uuid="e71298ef-4354-4d12-9e71-c7d62de4591e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="00883ddd-a846-45c2-87ba-d002fc12ba33"/>
+				</reportElement>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{Rest_Amount}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="-76" width="560" height="30" uuid="291f46e5-027c-4368-af4f-7986629b3acd"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[01717853158]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

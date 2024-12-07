@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DailyReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="954c8b96-187c-4cfa-8f45-949491d52c6c">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ReportShop"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM `companyinfo`,`daily_report`
+]]>
+	</queryString>
+	<field name="Name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Name"/>
+		<property name="com.jaspersoft.studio.field.label" value="Name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="companyinfo"/>
+	</field>
+	<field name="Address" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Address"/>
+		<property name="com.jaspersoft.studio.field.label" value="Address"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="companyinfo"/>
+	</field>
+	<field name="EMail" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMail"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMail"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="companyinfo"/>
+	</field>
+	<field name="Vat" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Vat"/>
+		<property name="com.jaspersoft.studio.field.label" value="Vat"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="companyinfo"/>
+	</field>
+	<field name="Mobile" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Mobile"/>
+		<property name="com.jaspersoft.studio.field.label" value="Mobile"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="companyinfo"/>
+	</field>
+	<field name="Messages" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Messages"/>
+		<property name="com.jaspersoft.studio.field.label" value="Messages"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="companyinfo"/>
+	</field>
+	<field name="Date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="Date"/>
+		<property name="com.jaspersoft.studio.field.label" value="Date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="daily_report"/>
+	</field>
+	<field name="TotalSale" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="TotalSale"/>
+		<property name="com.jaspersoft.studio.field.label" value="TotalSale"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="daily_report"/>
+	</field>
+	<field name="SaleReturn" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="SaleReturn"/>
+		<property name="com.jaspersoft.studio.field.label" value="SaleReturn"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="daily_report"/>
+	</field>
+	<field name="Discounts" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="Discounts"/>
+		<property name="com.jaspersoft.studio.field.label" value="Discounts"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="daily_report"/>
+	</field>
+	<field name="CardSale" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="CardSale"/>
+		<property name="com.jaspersoft.studio.field.label" value="CardSale"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="daily_report"/>
+	</field>
+	<field name="CashSale" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="CashSale"/>
+		<property name="com.jaspersoft.studio.field.label" value="CashSale"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="daily_report"/>
+	</field>
+	<field name="NetSale" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="NetSale"/>
+		<property name="com.jaspersoft.studio.field.label" value="NetSale"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="daily_report"/>
+	</field>
+	<field name="Profit" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="Profit"/>
+		<property name="com.jaspersoft.studio.field.label" value="Profit"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="daily_report"/>
+	</field>
+	<field name="OpeningBalance" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="OpeningBalance"/>
+		<property name="com.jaspersoft.studio.field.label" value="OpeningBalance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="daily_report"/>
+	</field>
+	<field name="Payment" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="Payment"/>
+		<property name="com.jaspersoft.studio.field.label" value="Payment"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="daily_report"/>
+	</field>
+	<field name="Received" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="Received"/>
+		<property name="com.jaspersoft.studio.field.label" value="Received"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="daily_report"/>
+	</field>
+	<field name="Due" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="Due"/>
+		<property name="com.jaspersoft.studio.field.label" value="Due"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="daily_report"/>
+	</field>
+	<field name="ClosingBlance" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="ClosingBlance"/>
+		<property name="com.jaspersoft.studio.field.label" value="ClosingBlance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="daily_report"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="496" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="554" height="30" uuid="ee2a758f-25f7-47ae-bbad-5517a479c2eb"/>
+				<textElement textAlignment="Center">
+					<font size="19" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="26" width="554" height="20" uuid="05b31fdb-21d6-4be0-b5c6-4b6910491cc6"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Address}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="47" width="554" height="30" uuid="144bacac-8285-4f34-87e5-feab76eb5116"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Mobile}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="86" width="554" height="40" forecolor="#030000" uuid="55870944-918a-48b0-8df6-f51733371701"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Daily Report]]></text>
+			</staticText>
+			<textField pattern="dd MMMM yyyy">
+				<reportElement x="0" y="68" width="554" height="30" uuid="a31d76a2-2cbc-471c-aa8a-0798bab40c15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="143" width="70" height="20" uuid="cf94cd94-a895-45cc-adca-cb6ee7d400da"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Sale:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="186" y="143" width="72" height="20" uuid="98f54b4d-52e6-4705-a18b-5673dc5b46c8"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sale Return:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="8" y="177" width="70" height="20" uuid="9d846f32-956c-4431-9faf-bd4f79616973"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Discounts:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="388" y="143" width="60" height="20" uuid="4005b67d-7b4b-4be1-ac4d-1ca4d6454985"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Net Sale:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="163" y="177" width="62" height="20" uuid="63c606c3-66ea-4911-b639-7b3d620c7184"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cash Sale:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="304" y="177" width="60" height="20" uuid="b7f8d0ac-4124-4ba6-ae9b-dad152f45edb"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Card Sale:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="177" width="60" height="20" uuid="3b7fb208-e626-4f81-b1c9-d26796d2f0b5"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Due Sale:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="186" y="211" width="56" height="20" uuid="1cf084b0-8c04-4b17-8279-4b8d2afbe8cc"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Payment:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="302" y="211" width="60" height="20" uuid="b54cc982-ea9b-461e-986f-bff36aef36f2"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Received:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="81" y="143" width="80" height="20" uuid="89414c6a-a62b-46b3-bcab-8f4ff56c0841"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TotalSale}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="454" y="143" width="90" height="20" uuid="9972eb85-1b06-4c12-ae76-7609478a1611"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NetSale}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="506" y="177" width="58" height="20" uuid="2068a04e-75c5-4120-83a5-5d5dfe244f35"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Due}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="262" y="143" width="95" height="20" uuid="0b977ae1-e551-496d-bd6b-4cff45d78f8b"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SaleReturn}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="177" width="84" height="20" uuid="cc7b8051-13e3-4b54-8d46-f471cca657d5"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Discounts}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="369" y="177" width="76" height="20" uuid="c4f92a07-a5c4-4239-bde9-036a9fdef585"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CardSale}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="229" y="177" width="80" height="20" uuid="880a89eb-7518-4425-87c5-cdf8fc57b03e"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CashSale}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="242" y="211" width="60" height="20" uuid="24695b73-c719-45ad-b9a1-c7c6f90b375c"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Payment}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="362" y="211" width="56" height="20" uuid="bff6096e-8e49-4a12-a810-4520e201fed1"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Received}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="8" y="211" width="110" height="20" uuid="70f12111-5654-46a3-9329-1cd6f5a9f9c4"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Opening Cash Bal:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="426" y="211" width="72" height="20" uuid="8811c570-5885-43c7-9dc4-84450c9f7f40"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Closing Bal:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="118" y="211" width="68" height="20" uuid="6b7fcd9b-3aac-499f-9b3e-e65ece28b0c4"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OpeningBalance}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="498" y="211" width="62" height="20" uuid="fb51d802-97e0-4b43-9f80-8cb071eaf66c"/>
+				<textElement textAlignment="Left">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ClosingBlance}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="33" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

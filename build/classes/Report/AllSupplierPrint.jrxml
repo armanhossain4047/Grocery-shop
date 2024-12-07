@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AllSupplierPrint" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="343a2826-1945-4000-8ffd-a6999e8bc923">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ReportShop"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * 
+FROM companyinfo,ladger 
+WHERE AccountType = 'Supplier';
+]]>
+	</queryString>
+	<field name="Name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Name"/>
+		<property name="com.jaspersoft.studio.field.label" value="Name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="companyinfo"/>
+	</field>
+	<field name="Address" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Address"/>
+		<property name="com.jaspersoft.studio.field.label" value="Address"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="companyinfo"/>
+	</field>
+	<field name="EMail" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMail"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMail"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="companyinfo"/>
+	</field>
+	<field name="Vat" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Vat"/>
+		<property name="com.jaspersoft.studio.field.label" value="Vat"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="companyinfo"/>
+	</field>
+	<field name="Mobile" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Mobile"/>
+		<property name="com.jaspersoft.studio.field.label" value="Mobile"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="companyinfo"/>
+	</field>
+	<field name="Messages" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Messages"/>
+		<property name="com.jaspersoft.studio.field.label" value="Messages"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="companyinfo"/>
+	</field>
+	<field name="AccountType" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="AccountType"/>
+		<property name="com.jaspersoft.studio.field.label" value="AccountType"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ladger"/>
+	</field>
+	<field name="COLUMN_8" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Name"/>
+		<property name="com.jaspersoft.studio.field.label" value="Name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ladger"/>
+	</field>
+	<field name="COLUMN_9" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Address"/>
+		<property name="com.jaspersoft.studio.field.label" value="Address"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ladger"/>
+	</field>
+	<field name="COLUMN_10" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Mobile"/>
+		<property name="com.jaspersoft.studio.field.label" value="Mobile"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ladger"/>
+	</field>
+	<field name="Blance" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="Blance"/>
+		<property name="com.jaspersoft.studio.field.label" value="Blance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ladger"/>
+	</field>
+	<field name="Date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="Date"/>
+		<property name="com.jaspersoft.studio.field.label" value="Date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="ladger"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="181" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="150" width="80" height="30" uuid="f3668400-43ef-404f-b9dd-6f6235ee9ffb"/>
+				<textElement>
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SL No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="90" y="150" width="190" height="30" uuid="729a1e6f-207d-494c-ab6c-70abace435a5"/>
+				<textElement>
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ledger Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="362" y="150" width="192" height="30" uuid="a874174d-3f26-4d65-8d4e-cb6061b19528"/>
+				<textElement textAlignment="Center">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Closing Balance]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="0" width="554" height="30" uuid="929ca769-b986-4160-baba-1a5a90f1bb06"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="30" width="554" height="30" uuid="968df742-b12b-454b-b88e-98c7f1412f2d"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Address}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="50" width="554" height="30" uuid="f833f229-f952-4f24-b432-f75d729056c5"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Mobile}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMM yyyy h:mm:ss a">
+				<reportElement x="0" y="90" width="554" height="30" uuid="09e27540-d374-4ba2-856a-9882cd91c3bc"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="2" width="554" height="1" uuid="9199f72f-2c6c-41ae-b8d8-7216c2f537d4"/>
+			</line>
+			<textField>
+				<reportElement x="360" y="3" width="192" height="16" uuid="303b48eb-0f41-4624-8fcf-c2d5fff02d5f"/>
+				<textElement textAlignment="Right" verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Blance}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="3" width="190" height="16" uuid="583e6a0f-d8ce-433a-8c33-807db06305af"/>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COLUMN_8}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="24" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="330" y="1" width="100" height="20" uuid="f08fdfe5-9316-4c30-a499-9d07c8a3a2aa"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Amount :]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

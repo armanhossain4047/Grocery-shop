@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Barcodeprint" printOrder="Horizontal" pageWidth="108" pageHeight="72" orientation="Landscape" columnWidth="108" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e2d1a9be-9f93-49da-9592-0683afa02458">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ReportShop"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="inch"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="inch"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM `barcode`]]>
+	</queryString>
+	<field name="Barcode" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Barcode"/>
+		<property name="com.jaspersoft.studio.field.label" value="Barcode"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="barcode"/>
+	</field>
+	<field name="Item" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Item"/>
+		<property name="com.jaspersoft.studio.field.label" value="Item"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="barcode"/>
+	</field>
+	<field name="rate" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="rate"/>
+		<property name="com.jaspersoft.studio.field.label" value="rate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="barcode"/>
+	</field>
+	<field name="qty" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="qty"/>
+		<property name="com.jaspersoft.studio.field.label" value="qty"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="barcode"/>
+	</field>
+	<field name="User" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="User"/>
+		<property name="com.jaspersoft.studio.field.label" value="User"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="barcode"/>
+	</field>
+	<group name="Barcode">
+		<groupExpression><![CDATA[$F{Barcode}]]></groupExpression>
+	</group>
+	<group name="Item">
+		<groupExpression><![CDATA[$F{Item}]]></groupExpression>
+	</group>
+	<group name="rate">
+		<groupExpression><![CDATA[$F{rate}]]></groupExpression>
+	</group>
+	<group name="qty">
+		<groupExpression><![CDATA[$F{qty}]]></groupExpression>
+	</group>
+	<group name="User">
+		<groupExpression><![CDATA[$F{User}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="72" splitType="Stretch">
+			<componentElement>
+				<reportElement x="4" y="32" width="100" height="12" uuid="287f6e08-b79a-4ed4-95ac-8d23badef5b9">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code128" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$F{Barcode}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+			<textField>
+				<reportElement x="4" y="44" width="100" height="11" uuid="08f05d2a-1f75-4194-aa3c-b32fe3af1779"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Barcode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="55" y="55" width="20" height="11" uuid="6c89d844-e453-4c56-83c1-4d1edaaaca10"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="4" y="17" width="100" height="12" uuid="e61e4b70-0618-4103-b9be-c94946f0dc4a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Item}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="4" y="3" width="100" height="16" uuid="d2b6d5e9-6ff7-4b30-bac5-c4890f842764"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Rifat Mega Mart]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="55" width="33" height="11" uuid="3f7e0b47-678b-4134-8bdd-a6b613ea5bd1"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Price:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="67" y="55" width="30" height="11" uuid="db72fbcd-7f44-464b-83a4-0a8b57ee00d2"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tk]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

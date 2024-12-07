@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Balanseet" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c583ce99-27ff-45b5-8e75-36bf8d2cd9fb">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ReportShop"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM`companyinfo`, businessanalysis WHERE CDate = CURRENT_DATE;]]>
+	</queryString>
+	<field name="Name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Name"/>
+		<property name="com.jaspersoft.studio.field.label" value="Name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="companyinfo"/>
+	</field>
+	<field name="Address" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Address"/>
+		<property name="com.jaspersoft.studio.field.label" value="Address"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="companyinfo"/>
+	</field>
+	<field name="EMail" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="EMail"/>
+		<property name="com.jaspersoft.studio.field.label" value="EMail"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="companyinfo"/>
+	</field>
+	<field name="Vat" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Vat"/>
+		<property name="com.jaspersoft.studio.field.label" value="Vat"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="companyinfo"/>
+	</field>
+	<field name="Mobile" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Mobile"/>
+		<property name="com.jaspersoft.studio.field.label" value="Mobile"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="companyinfo"/>
+	</field>
+	<field name="Messages" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Messages"/>
+		<property name="com.jaspersoft.studio.field.label" value="Messages"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="companyinfo"/>
+	</field>
+	<field name="CDate" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="CDate"/>
+		<property name="com.jaspersoft.studio.field.label" value="CDate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="businessanalysis"/>
+	</field>
+	<field name="Establishment" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Establishment"/>
+		<property name="com.jaspersoft.studio.field.label" value="Establishment"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="businessanalysis"/>
+	</field>
+	<field name="StockValue" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="StockValue"/>
+		<property name="com.jaspersoft.studio.field.label" value="StockValue"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="businessanalysis"/>
+	</field>
+	<field name="CustomerDue" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CustomerDue"/>
+		<property name="com.jaspersoft.studio.field.label" value="CustomerDue"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="businessanalysis"/>
+	</field>
+	<field name="BankBalance" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="BankBalance"/>
+		<property name="com.jaspersoft.studio.field.label" value="BankBalance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="businessanalysis"/>
+	</field>
+	<field name="AssetPlainLoan" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="AssetPlainLoan"/>
+		<property name="com.jaspersoft.studio.field.label" value="AssetPlainLoan"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="businessanalysis"/>
+	</field>
+	<field name="TotalAssist" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TotalAssist"/>
+		<property name="com.jaspersoft.studio.field.label" value="TotalAssist"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="businessanalysis"/>
+	</field>
+	<field name="CashInHand" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CashInHand"/>
+		<property name="com.jaspersoft.studio.field.label" value="CashInHand"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="businessanalysis"/>
+	</field>
+	<field name="SupplierDue" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="SupplierDue"/>
+		<property name="com.jaspersoft.studio.field.label" value="SupplierDue"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="businessanalysis"/>
+	</field>
+	<field name="Advance" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Advance"/>
+		<property name="com.jaspersoft.studio.field.label" value="Advance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="businessanalysis"/>
+	</field>
+	<field name="LiaPlainLoan" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="LiaPlainLoan"/>
+		<property name="com.jaspersoft.studio.field.label" value="LiaPlainLoan"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="businessanalysis"/>
+	</field>
+	<field name="CCSLoan" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CCSLoan"/>
+		<property name="com.jaspersoft.studio.field.label" value="CCSLoan"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="businessanalysis"/>
+	</field>
+	<field name="CCLoan" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="CCLoan"/>
+		<property name="com.jaspersoft.studio.field.label" value="CCLoan"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="businessanalysis"/>
+	</field>
+	<field name="SalaryDue" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="SalaryDue"/>
+		<property name="com.jaspersoft.studio.field.label" value="SalaryDue"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="businessanalysis"/>
+	</field>
+	<field name="BillDue" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="BillDue"/>
+		<property name="com.jaspersoft.studio.field.label" value="BillDue"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="businessanalysis"/>
+	</field>
+	<field name="Asset" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Asset"/>
+		<property name="com.jaspersoft.studio.field.label" value="Asset"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="businessanalysis"/>
+	</field>
+	<field name="Liabilities" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Liabilities"/>
+		<property name="com.jaspersoft.studio.field.label" value="Liabilities"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="businessanalysis"/>
+	</field>
+	<field name="Position" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Position"/>
+		<property name="com.jaspersoft.studio.field.label" value="Position"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="businessanalysis"/>
+	</field>
+	<field name="TotalLiabilites" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="TotalLiabilites"/>
+		<property name="com.jaspersoft.studio.field.label" value="TotalLiabilites"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="businessanalysis"/>
+	</field>
+	<group name="Name">
+		<groupExpression><![CDATA[$F{Name}]]></groupExpression>
+	</group>
+	<group name="Address">
+		<groupExpression><![CDATA[$F{Address}]]></groupExpression>
+	</group>
+	<group name="EMail">
+		<groupExpression><![CDATA[$F{EMail}]]></groupExpression>
+	</group>
+	<group name="Vat">
+		<groupExpression><![CDATA[$F{Vat}]]></groupExpression>
+	</group>
+	<group name="Mobile">
+		<groupExpression><![CDATA[$F{Mobile}]]></groupExpression>
+	</group>
+	<group name="Messages">
+		<groupExpression><![CDATA[$F{Messages}]]></groupExpression>
+	</group>
+	<group name="CDate">
+		<groupExpression><![CDATA[$F{CDate}]]></groupExpression>
+	</group>
+	<group name="Establishment">
+		<groupExpression><![CDATA[$F{Establishment}]]></groupExpression>
+	</group>
+	<group name="StockValue">
+		<groupExpression><![CDATA[$F{StockValue}]]></groupExpression>
+	</group>
+	<group name="CustomerDue">
+		<groupExpression><![CDATA[$F{CustomerDue}]]></groupExpression>
+	</group>
+	<group name="BankBalance">
+		<groupExpression><![CDATA[$F{BankBalance}]]></groupExpression>
+	</group>
+	<group name="AssetPlainLoan">
+		<groupExpression><![CDATA[$F{AssetPlainLoan}]]></groupExpression>
+	</group>
+	<group name="TotalAssist">
+		<groupExpression><![CDATA[$F{TotalAssist}]]></groupExpression>
+	</group>
+	<group name="CashInHand">
+		<groupExpression><![CDATA[$F{CashInHand}]]></groupExpression>
+	</group>
+	<group name="SupplierDue">
+		<groupExpression><![CDATA[$F{SupplierDue}]]></groupExpression>
+	</group>
+	<group name="Advance">
+		<groupExpression><![CDATA[$F{Advance}]]></groupExpression>
+	</group>
+	<group name="LiaPlainLoan">
+		<groupExpression><![CDATA[$F{LiaPlainLoan}]]></groupExpression>
+	</group>
+	<group name="CCSLoan">
+		<groupExpression><![CDATA[$F{CCSLoan}]]></groupExpression>
+	</group>
+	<group name="CCLoan">
+		<groupExpression><![CDATA[$F{CCLoan}]]></groupExpression>
+	</group>
+	<group name="SalaryDue">
+		<groupExpression><![CDATA[$F{SalaryDue}]]></groupExpression>
+	</group>
+	<group name="BillDue">
+		<groupExpression><![CDATA[$F{BillDue}]]></groupExpression>
+	</group>
+	<group name="Asset">
+		<groupExpression><![CDATA[$F{Asset}]]></groupExpression>
+	</group>
+	<group name="Liabilities">
+		<groupExpression><![CDATA[$F{Liabilities}]]></groupExpression>
+	</group>
+	<group name="Position">
+		<groupExpression><![CDATA[$F{Position}]]></groupExpression>
+	</group>
+	<group name="TotalLiabilites">
+		<groupExpression><![CDATA[$F{TotalLiabilites}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="802" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="555" height="78" forecolor="#FFFFFF" backcolor="#F5F2F2" uuid="0a2e40ff-fce6-4ace-91f1-d53a392b36c4"/>
+			</rectangle>
+			<textField>
+				<reportElement x="0" y="4" width="555" height="30" uuid="a680fbab-eb8b-4fec-ad90-191a55199dac"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Name}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="133" width="555" height="29" forecolor="#FFFFFF" backcolor="#CFCFCF" uuid="1cd755cf-3569-4317-be5c-774e90e50a37"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="133" width="555" height="30" uuid="7bd7bb6d-9cc9-4633-aad2-f23499158fd0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Balance Sheet]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="281" y="169" width="274" height="30" uuid="7cf55579-20f6-4290-8a4d-ebe25dd78b0a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Assets]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="169" width="280" height="30" uuid="653a508c-abd4-4a70-8106-d177bba226f4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Liabilities]]></text>
+			</staticText>
+			<line>
+				<reportElement x="280" y="195" width="1" height="193" uuid="35bb44bc-1b6a-4b13-8a6a-51fcb7ec6fe9"/>
+			</line>
+			<line>
+				<reportElement x="0" y="195" width="555" height="1" uuid="f3ca9ad7-943c-401f-9808-57672f3d8222"/>
+			</line>
+			<staticText>
+				<reportElement x="20" y="235" width="120" height="18" uuid="1dda9611-58c7-49f7-b1ba-33027e02e35f"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Order Advance :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="218" width="120" height="16" uuid="41cd32a2-907b-4412-9f90-bcbb11e5e910"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Supplier Due:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="199" width="120" height="18" uuid="fc415c87-632c-4fe1-9351-06414e111412"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Capital Account :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="274" width="138" height="18" uuid="228ecffb-fefa-47dc-8c72-4902ff8d0653"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[CC Loan :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="314" width="138" height="18" uuid="7e5009fe-cd42-45d7-817e-7505900134ee"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Salary Due:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="353" width="110" height="30" uuid="7a264cc8-653c-490c-bbcf-b373c62c0b08"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Liabilities:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="254" width="138" height="18" uuid="00182d50-f1f2-4fb3-87d4-306a4547e19a"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Plain Loan Liabilities:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="333" width="138" height="18" uuid="3b9005ed-e4de-48e4-8201-6dd33aafbf82"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Bill Due :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="294" width="138" height="18" uuid="a580af4a-3e39-4347-8681-47e11eb4934c"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Term Loan :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="218" width="110" height="16" uuid="68213ecd-e57d-476d-8583-58f2363eb543"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Customer Due:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="236" width="98" height="18" uuid="20312f3c-7f23-49a2-ab11-bb257c59404c"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Bank Balance:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="296" width="128" height="18" uuid="62467244-338c-4a81-8268-66d33e1bca41"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fixed Assets :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="355" width="128" height="30" uuid="697af017-7073-42d8-8c53-372bfba4f0d5"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Assets :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="276" width="128" height="18" uuid="28c4b2db-2f4e-45fb-b716-e015ac43c767"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Plain Loan Assets:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="199" width="98" height="18" uuid="13c56e96-c9ff-4eee-a94b-7a8ccb230ffe"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Stock Value:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="291" y="256" width="98" height="18" uuid="b52cd006-8e39-4447-b489-25746c647a2d"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Cash in Hand:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="183" y="420" width="98" height="30" uuid="c674c5c2-40fa-45fb-863a-32739caaa255"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Position:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="781" width="555" height="21" uuid="8c71816b-8d91-4614-be85-51639470b22d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[www.quickledgerbd.com]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="33" width="555" height="30" uuid="242ee694-a42b-4b46-8530-90163f7064b2"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Address}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="56" width="555" height="30" uuid="67c07310-db98-4c04-86d1-1ef949e9c427"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Mobile}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMM yyyy h:mm:ss a">
+				<reportElement x="0" y="88" width="555" height="30" uuid="ab89cd58-5781-48ee-bd06-7d20ccb01156"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="416" y="199" width="134" height="18" uuid="92c15f16-3f41-421f-9c2e-30a53f48a3ea"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{StockValue}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="416" y="218" width="134" height="16" uuid="dfc746e3-aa10-4725-9f76-ccc7bedc748d"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CustomerDue}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="276" width="130" height="18" uuid="fc145512-768a-41cb-9a23-cc98d1b02115"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AssetPlainLoan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="296" width="120" height="18" uuid="24621896-268f-40a1-8365-d376a47bbc2c"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Establishment}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="416" y="236" width="134" height="18" uuid="9af57f92-930a-4e30-889d-af7c78343e92"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BankBalance}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="430" y="355" width="120" height="30" uuid="16cbed30-f037-4919-bd63-41381418228c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TotalAssist}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="353" width="132" height="30" uuid="5f7b90d0-c2d8-42e0-8d2e-95982fe47e55"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TotalLiabilites}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="416" y="256" width="134" height="18" uuid="6c417702-62bc-455f-82db-85a747a82ef0"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CashInHand}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="152" y="218" width="120" height="16" uuid="fe863b2a-59eb-43a4-adb4-84ea842f176a"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SupplierDue}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="235" width="112" height="18" uuid="edc18058-5150-4f92-9df2-401542263b08"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Advance}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="254" width="112" height="18" uuid="166d47bc-e8f8-4808-9120-c8fc9765466a"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LiaPlainLoan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="274" width="112" height="18" uuid="9f1b0dfa-93dc-441f-ace6-9d0eed0992f3"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CCLoan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="314" width="112" height="18" uuid="bd988193-4c9b-4814-9967-b9438fc94bd3"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SalaryDue}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="333" width="112" height="18" uuid="4ba859e7-8416-4a95-a9f2-a675fe26a880"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BillDue}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="420" width="140" height="30" uuid="fe24b521-4db6-4b7a-93d1-7f119ab139fe"/>
+				<textElement verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Position}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="199" width="112" height="20" uuid="5def014b-f2e3-4ce4-ba69-24af0dec258c"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Liabilities}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="293" width="112" height="20" uuid="d8a97987-9ef6-46ed-b75f-21ac16250ff6"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Liabilities}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>
